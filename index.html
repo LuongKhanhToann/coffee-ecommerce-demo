@@ -1,0 +1,1361 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MỘC — Cà Phê Đặc Sản Việt | Demo website thương mại điện tử</title>
+<meta name="description" content="Website mẫu bán cà phê đặc sản: hiển thị sản phẩm, giỏ hàng, thanh toán và theo dõi giao hàng tự động.">
+<meta name="theme-color" content="#E6DCC7">
+<meta property="og:title" content="MỘC — Cà Phê Đặc Sản Việt">
+<meta property="og:description" content="Website mẫu bán cà phê đặc sản: sản phẩm → giỏ hàng → thanh toán → theo dõi giao hàng.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%23231A13'/><text x='16' y='23' font-size='20' font-family='Georgia,serif' fill='%23C9A45C' text-anchor='middle'>%E6%9C%A8</text></svg>">
+<style>
+  *,*::before,*::after{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;min-height:100vh}
+</style>
+</head>
+<body>
+<style>
+  :root {
+    /* Sơn mài palette */
+    --paper:      #E6DCC7;
+    --paper-2:    #DDD1B7;
+    --ink:        #231A13;
+    --ink-soft:   #5C4B3B;
+    --ink-faint:  #8B7863;
+    --gold:       #A67C2E;
+    --gold-hi:    #C9A45C;
+    --son:        #8C2B20;
+    --line:       rgba(35, 26, 19, 0.16);
+    --line-soft:  rgba(35, 26, 19, 0.08);
+    --card:       #EFE7D6;
+    --card-2:     #F5EFE2;
+    --shadow:     0 1px 2px rgba(35,26,19,.06), 0 12px 32px -18px rgba(35,26,19,.35);
+    --ok:         #3E6B4F;
+    --warn:       #9A6B1E;
+
+    --f-display: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+    --f-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+    --wrap: 1180px;
+    --r: 2px;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper:     #14100C;
+      --paper-2:   #1B1611;
+      --ink:       #EDE2CC;
+      --ink-soft:  #B8A88E;
+      --ink-faint: #83745E;
+      --gold:      #C9A45C;
+      --gold-hi:   #E3C583;
+      --son:       #C1523F;
+      --line:      rgba(237, 226, 204, 0.18);
+      --line-soft: rgba(237, 226, 204, 0.08);
+      --card:      #1D1812;
+      --card-2:    #241E16;
+      --shadow:    0 1px 2px rgba(0,0,0,.4), 0 16px 40px -20px rgba(0,0,0,.8);
+      --ok:        #7FB08F;
+      --warn:      #D6A54E;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper:     #14100C;
+    --paper-2:   #1B1611;
+    --ink:       #EDE2CC;
+    --ink-soft:  #B8A88E;
+    --ink-faint: #83745E;
+    --gold:      #C9A45C;
+    --gold-hi:   #E3C583;
+    --son:       #C1523F;
+    --line:      rgba(237, 226, 204, 0.18);
+    --line-soft: rgba(237, 226, 204, 0.08);
+    --card:      #1D1812;
+    --card-2:    #241E16;
+    --shadow:    0 1px 2px rgba(0,0,0,.4), 0 16px 40px -20px rgba(0,0,0,.8);
+    --ok:        #7FB08F;
+    --warn:      #D6A54E;
+  }
+  :root[data-theme="light"] {
+    --paper:      #E6DCC7;
+    --paper-2:    #DDD1B7;
+    --ink:        #231A13;
+    --ink-soft:   #5C4B3B;
+    --ink-faint:  #8B7863;
+    --gold:       #A67C2E;
+    --gold-hi:    #C9A45C;
+    --son:        #8C2B20;
+    --line:       rgba(35, 26, 19, 0.16);
+    --line-soft:  rgba(35, 26, 19, 0.08);
+    --card:       #EFE7D6;
+    --card-2:     #F5EFE2;
+    --shadow:     0 1px 2px rgba(35,26,19,.06), 0 12px 32px -18px rgba(35,26,19,.35);
+    --ok:         #3E6B4F;
+    --warn:       #9A6B1E;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--f-body);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 999;
+    opacity: .5;
+    background-image: var(--grain, none);
+    mix-blend-mode: overlay;
+  }
+
+  h1, h2, h3, h4 { font-family: var(--f-display); font-weight: 400; text-wrap: balance; margin: 0; letter-spacing: -0.01em; }
+  p { margin: 0; }
+  img { max-width: 100%; }
+  button { font: inherit; color: inherit; cursor: pointer; }
+  a { color: inherit; }
+
+  :focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+
+  .wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 28px; }
+
+  .eyebrow {
+    font-size: 11px;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 600;
+  }
+  .muted { color: var(--ink-soft); }
+  .num { font-variant-numeric: tabular-nums; }
+
+  /* ---------- header ---------- */
+  header.site {
+    position: sticky; top: 0; z-index: 50;
+    background: color-mix(in srgb, var(--paper) 88%, transparent);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .bar { display: flex; align-items: center; gap: 32px; height: 68px; }
+  .brand { display: flex; align-items: center; gap: 11px; cursor: pointer; margin-right: auto; }
+  .seal {
+    width: 34px; height: 34px; flex: none;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    display: grid; place-items: center;
+    font-family: var(--f-display);
+    font-size: 17px;
+    border-radius: 50%;
+  }
+  .brand-name { font-family: var(--f-display); font-size: 21px; letter-spacing: .16em; }
+  .brand-sub { font-size: 9px; letter-spacing: .26em; text-transform: uppercase; color: var(--ink-faint); margin-top: -3px; }
+
+  nav.main { display: flex; gap: 26px; }
+  nav.main button {
+    background: none; border: 0; padding: 4px 0;
+    font-size: 13px; letter-spacing: .06em;
+    color: var(--ink-soft);
+    border-bottom: 1px solid transparent;
+  }
+  nav.main button:hover, nav.main button[aria-current="true"] { color: var(--ink); border-bottom-color: var(--gold); }
+
+  .tools { display: flex; align-items: center; gap: 8px; }
+  .icon-btn {
+    background: none; border: 1px solid var(--line);
+    width: 38px; height: 38px; display: grid; place-items: center;
+    border-radius: var(--r); position: relative;
+    transition: border-color .2s, background .2s;
+  }
+  .icon-btn:hover { border-color: var(--gold); }
+  .badge {
+    position: absolute; top: -7px; right: -7px;
+    background: var(--son); color: #F6EEDC;
+    font-size: 10px; font-weight: 700;
+    min-width: 18px; height: 18px; border-radius: 9px;
+    display: grid; place-items: center; padding: 0 4px;
+    font-variant-numeric: tabular-nums;
+  }
+  .badge[hidden] { display: none; }
+
+  /* ---------- buttons ---------- */
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+    padding: 14px 26px;
+    background: var(--ink); color: var(--paper);
+    border: 1px solid var(--ink);
+    border-radius: var(--r);
+    font-size: 13px; font-weight: 600;
+    letter-spacing: .09em; text-transform: uppercase;
+    transition: background .2s, color .2s, border-color .2s;
+  }
+  .btn:hover { background: var(--gold); border-color: var(--gold); color: #17110A; }
+  .btn.ghost { background: transparent; color: var(--ink); border-color: var(--line); }
+  .btn.ghost:hover { border-color: var(--gold); color: var(--gold); background: transparent; }
+  .btn.gold { background: var(--gold); border-color: var(--gold); color: #17110A; }
+  .btn.gold:hover { background: var(--gold-hi); border-color: var(--gold-hi); }
+  .btn.wide { width: 100%; }
+  .btn:disabled { opacity: .45; cursor: not-allowed; }
+
+  /* ---------- hero ---------- */
+  .hero {
+    position: relative;
+    border-bottom: 1px solid var(--line-soft);
+    overflow: hidden;
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.05fr .95fr;
+    gap: 48px;
+    align-items: center;
+    min-height: 78vh;
+    padding: 72px 0;
+  }
+  .hero h1 {
+    font-size: clamp(46px, 6.4vw, 88px);
+    line-height: .98;
+    margin: 22px 0 0;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--gold);
+  }
+  .hero-lede {
+    margin-top: 26px;
+    max-width: 46ch;
+    font-size: 17px;
+    color: var(--ink-soft);
+  }
+  .hero-cta { display: flex; gap: 12px; margin-top: 36px; flex-wrap: wrap; }
+  .hero-facts {
+    display: flex; gap: 40px; margin-top: 54px;
+    padding-top: 26px; border-top: 1px solid var(--line-soft);
+  }
+  .fact strong { display: block; font-family: var(--f-display); font-size: 27px; }
+  .fact span { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-faint); }
+
+  .hero-art { position: relative; display: grid; place-items: center; }
+  .hero-art .halo {
+    position: absolute; width: 108%; aspect-ratio: 1; border-radius: 50%;
+    background: radial-gradient(circle at 50% 45%, color-mix(in srgb, var(--gold) 26%, transparent), transparent 62%);
+    filter: blur(6px);
+  }
+  .hero-art svg { position: relative; width: min(100%, 400px); filter: drop-shadow(0 30px 50px rgba(0,0,0,.28)); }
+
+  /* ---------- sections ---------- */
+  section.band { padding: 96px 0; border-bottom: 1px solid var(--line-soft); }
+  .sec-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; margin-bottom: 44px; }
+  .sec-head h2 { font-size: clamp(30px, 3.6vw, 44px); line-height: 1.06; margin-top: 10px; }
+  .sec-head p { max-width: 42ch; color: var(--ink-soft); font-size: 15px; }
+
+  /* ---------- product grid ---------- */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(255px, 1fr));
+    gap: 1px;
+    background: var(--line-soft);
+    border: 1px solid var(--line-soft);
+  }
+  .card {
+    background: var(--paper);
+    padding: 22px 22px 24px;
+    display: flex; flex-direction: column;
+    cursor: pointer;
+    transition: background .25s;
+    position: relative;
+  }
+  .card:hover { background: var(--card); }
+  .card .packshot {
+    aspect-ratio: 4/5;
+    display: grid; place-items: center;
+    margin-bottom: 18px;
+    position: relative;
+  }
+  .card .packshot svg { width: 62%; transition: transform .4s cubic-bezier(.2,.8,.2,1); }
+  .card:hover .packshot svg { transform: translateY(-6px) scale(1.03); }
+  .tag {
+    position: absolute; top: 0; left: 0;
+    font-size: 10px; letter-spacing: .14em; text-transform: uppercase;
+    padding: 4px 9px; font-weight: 700;
+    background: var(--son); color: #F6EEDC;
+  }
+  .tag.soft { background: transparent; color: var(--gold); border: 1px solid var(--gold); }
+  .card h3 { font-size: 20px; }
+  .card .origin { font-size: 12px; color: var(--ink-faint); letter-spacing: .05em; margin-top: 3px; }
+  .card .notes { font-size: 13px; color: var(--ink-soft); margin-top: 10px; flex: 1; }
+  .card .foot { display: flex; align-items: center; justify-content: space-between; margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--line-soft); }
+  .price { font-family: var(--f-display); font-size: 19px; font-variant-numeric: tabular-nums; }
+  .price s { color: var(--ink-faint); font-size: 14px; margin-right: 7px; }
+  .add-mini {
+    background: none; border: 1px solid var(--line); border-radius: var(--r);
+    padding: 7px 13px; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; font-weight: 600;
+  }
+  .add-mini:hover { border-color: var(--gold); color: var(--gold); }
+
+  /* filters */
+  .filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 26px; }
+  .chip {
+    background: none; border: 1px solid var(--line);
+    padding: 8px 15px; border-radius: 100px;
+    font-size: 12px; letter-spacing: .05em;
+    color: var(--ink-soft);
+  }
+  .chip[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+
+  /* ---------- PDP ---------- */
+  .pdp { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; padding: 56px 0 96px; align-items: start; }
+  .pdp-art {
+    background: var(--card);
+    border: 1px solid var(--line-soft);
+    aspect-ratio: 1;
+    display: grid; place-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .pdp-art::after {
+    content: ""; position: absolute; inset: 0;
+    background: radial-gradient(circle at 50% 40%, color-mix(in srgb, var(--gold) 18%, transparent), transparent 60%);
+  }
+  .pdp-art svg { width: 54%; position: relative; z-index: 1; filter: drop-shadow(0 26px 40px rgba(0,0,0,.3)); }
+  .pdp h1 { font-size: clamp(32px, 4vw, 46px); line-height: 1.05; margin-top: 12px; }
+  .pdp .lede { margin-top: 18px; color: var(--ink-soft); max-width: 52ch; }
+  .pdp .price-lg { font-family: var(--f-display); font-size: 32px; margin-top: 22px; font-variant-numeric: tabular-nums; }
+
+  .opt-group { margin-top: 26px; }
+  .opt-label { font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 10px; font-weight: 600; }
+  .opts { display: flex; gap: 8px; flex-wrap: wrap; }
+  .opt {
+    border: 1px solid var(--line); background: none;
+    padding: 10px 17px; border-radius: var(--r);
+    font-size: 13px;
+  }
+  .opt[aria-pressed="true"] { border-color: var(--ink); background: var(--ink); color: var(--paper); }
+  .opt:hover:not([aria-pressed="true"]) { border-color: var(--gold); }
+
+  .qty { display: inline-flex; align-items: center; border: 1px solid var(--line); border-radius: var(--r); }
+  .qty button { background: none; border: 0; width: 40px; height: 44px; font-size: 17px; }
+  .qty button:hover { color: var(--gold); }
+  .qty span { width: 42px; text-align: center; font-variant-numeric: tabular-nums; font-weight: 600; }
+
+  .buy-row { display: flex; gap: 12px; margin-top: 30px; align-items: stretch; }
+  .buy-row .btn { flex: 1; }
+
+  .spec { margin-top: 36px; border-top: 1px solid var(--line-soft); }
+  .spec-row { display: flex; justify-content: space-between; gap: 20px; padding: 13px 0; border-bottom: 1px solid var(--line-soft); font-size: 14px; }
+  .spec-row dt { color: var(--ink-faint); }
+  .spec-row dd { margin: 0; text-align: right; }
+
+  /* ---------- cart drawer ---------- */
+  .scrim {
+    position: fixed; inset: 0; z-index: 90;
+    background: rgba(12, 9, 6, .5);
+    backdrop-filter: blur(2px);
+    opacity: 0; pointer-events: none;
+    transition: opacity .3s;
+  }
+  .scrim.open { opacity: 1; pointer-events: auto; }
+  aside.cart {
+    position: fixed; top: 0; right: 0; bottom: 0; z-index: 95;
+    width: min(430px, 100%);
+    background: var(--paper);
+    border-left: 1px solid var(--line);
+    display: flex; flex-direction: column;
+    transform: translateX(100%);
+    transition: transform .38s cubic-bezier(.2,.8,.2,1);
+  }
+  aside.cart.open { transform: none; }
+  .cart-head { display: flex; align-items: center; justify-content: space-between; padding: 22px 24px; border-bottom: 1px solid var(--line-soft); }
+  .cart-head h3 { font-size: 20px; }
+  .cart-body { flex: 1; overflow-y: auto; padding: 8px 24px; }
+  .cart-foot { padding: 20px 24px 24px; border-top: 1px solid var(--line-soft); background: var(--card); }
+
+  .line-item { display: grid; grid-template-columns: 62px 1fr auto; gap: 14px; padding: 18px 0; border-bottom: 1px solid var(--line-soft); }
+  .line-item .thumb { background: var(--card); border: 1px solid var(--line-soft); display: grid; place-items: center; aspect-ratio: 1; }
+  .line-item .thumb svg { width: 56%; }
+  .li-name { font-family: var(--f-display); font-size: 16px; }
+  .li-var { font-size: 12px; color: var(--ink-faint); margin-top: 2px; }
+  .li-ctl { display: flex; align-items: center; gap: 10px; margin-top: 9px; }
+  .li-ctl button { background: none; border: 1px solid var(--line); width: 24px; height: 24px; border-radius: 2px; line-height: 1; display: grid; place-items: center; font-size: 13px; }
+  .li-ctl button:hover { border-color: var(--gold); color: var(--gold); }
+  .li-ctl .n { font-size: 13px; width: 18px; text-align: center; font-variant-numeric: tabular-nums; }
+  .li-right { text-align: right; display: flex; flex-direction: column; justify-content: space-between; }
+  .li-price { font-variant-numeric: tabular-nums; font-weight: 600; font-size: 14px; }
+  .li-rm { background: none; border: 0; padding: 0; font-size: 11px; color: var(--ink-faint); text-decoration: underline; text-underline-offset: 3px; }
+  .li-rm:hover { color: var(--son); }
+
+  .totals { display: flex; flex-direction: column; gap: 9px; margin-bottom: 16px; font-size: 14px; }
+  .totals .row { display: flex; justify-content: space-between; }
+  .totals .row.grand { font-family: var(--f-display); font-size: 22px; padding-top: 11px; border-top: 1px solid var(--line); margin-top: 4px; }
+  .totals .num { font-variant-numeric: tabular-nums; }
+  .free-ship { font-size: 12px; color: var(--gold); display: flex; align-items: center; gap: 6px; }
+
+  .empty { text-align: center; padding: 70px 20px; color: var(--ink-faint); }
+  .empty svg { width: 46px; opacity: .35; margin-bottom: 14px; }
+
+  /* ---------- checkout ---------- */
+  .checkout { display: grid; grid-template-columns: 1.25fr .85fr; gap: 56px; padding: 48px 0 96px; align-items: start; }
+  .steps { display: flex; gap: 10px; align-items: center; margin-bottom: 34px; font-size: 12px; letter-spacing: .06em; color: var(--ink-faint); }
+  .steps .s { display: flex; align-items: center; gap: 7px; }
+  .steps .s .dot { width: 21px; height: 21px; border-radius: 50%; border: 1px solid var(--line); display: grid; place-items: center; font-size: 11px; font-weight: 700; }
+  .steps .s.on { color: var(--ink); }
+  .steps .s.on .dot { background: var(--gold); border-color: var(--gold); color: #17110A; }
+  .steps .s.done .dot { background: var(--ok); border-color: var(--ok); color: var(--paper); }
+  .steps .sep { flex: 1; height: 1px; background: var(--line-soft); min-width: 16px; }
+
+  fieldset { border: 0; padding: 0; margin: 0 0 30px; }
+  legend { font-family: var(--f-display); font-size: 22px; margin-bottom: 16px; padding: 0; }
+  .field-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .field { display: flex; flex-direction: column; gap: 6px; }
+  .field.full { grid-column: 1 / -1; }
+  .field label { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-faint); font-weight: 600; }
+  .field input, .field select, .field textarea {
+    font: inherit; font-size: 15px;
+    padding: 12px 13px;
+    background: var(--card-2);
+    border: 1px solid var(--line);
+    border-radius: var(--r);
+    color: var(--ink);
+  }
+  .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--gold); outline: none; }
+  .field .err { font-size: 12px; color: var(--son); display: none; }
+  .field.invalid input, .field.invalid select { border-color: var(--son); }
+  .field.invalid .err { display: block; }
+
+  .pay-opts { display: flex; flex-direction: column; gap: 10px; }
+  .pay {
+    display: flex; align-items: center; gap: 13px;
+    padding: 15px 16px; border: 1px solid var(--line); border-radius: var(--r);
+    cursor: pointer; background: var(--card-2);
+  }
+  .pay[aria-pressed="true"] { border-color: var(--gold); background: color-mix(in srgb, var(--gold) 10%, var(--card-2)); }
+  .pay .mark { width: 34px; height: 34px; border: 1px solid var(--line); border-radius: 3px; display: grid; place-items: center; flex: none; color: var(--gold); }
+  .pay .t { flex: 1; text-align: left; }
+  .pay .t strong { display: block; font-size: 14px; font-weight: 600; }
+  .pay .t span { font-size: 12px; color: var(--ink-faint); }
+
+  .summary { background: var(--card); border: 1px solid var(--line-soft); padding: 26px; position: sticky; top: 92px; }
+  .summary h3 { font-size: 20px; margin-bottom: 18px; }
+  .sum-item { display: grid; grid-template-columns: 46px 1fr auto; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--line-soft); font-size: 13px; }
+  .sum-item .thumb { background: var(--paper); border: 1px solid var(--line-soft); display: grid; place-items: center; }
+  .sum-item .thumb svg { width: 60%; }
+  .sum-item .n { font-family: var(--f-display); font-size: 15px; }
+  .sum-item .v { color: var(--ink-faint); font-size: 11px; }
+  .sum-item .p { font-variant-numeric: tabular-nums; align-self: center; }
+
+  .coupon { display: flex; gap: 8px; margin: 18px 0; }
+  .coupon input { flex: 1; font: inherit; font-size: 14px; padding: 11px 12px; background: var(--paper); border: 1px solid var(--line); border-radius: var(--r); color: var(--ink); }
+  .coupon button { padding: 11px 16px; background: none; border: 1px solid var(--line); border-radius: var(--r); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; font-weight: 600; }
+  .coupon button:hover { border-color: var(--gold); color: var(--gold); }
+  .coupon-msg { font-size: 12px; margin-top: -10px; margin-bottom: 14px; }
+  .coupon-msg.ok { color: var(--ok); }
+  .coupon-msg.bad { color: var(--son); }
+
+  /* ---------- confirmation / tracking ---------- */
+  .confirm { padding: 60px 0 96px; max-width: 800px; margin: 0 auto; }
+  .confirm-top { text-align: center; padding-bottom: 44px; border-bottom: 1px solid var(--line-soft); }
+  .stamp {
+    width: 78px; height: 78px; margin: 0 auto 24px;
+    border: 1.5px solid var(--gold); color: var(--gold);
+    border-radius: 50%; display: grid; place-items: center;
+    animation: pop .6s cubic-bezier(.2,1.3,.4,1) both;
+  }
+  @keyframes pop { from { transform: scale(.3) rotate(-14deg); opacity: 0; } }
+  .confirm-top h1 { font-size: clamp(30px, 4vw, 42px); }
+  .order-code {
+    display: inline-block; margin-top: 18px;
+    font-family: var(--f-display); font-size: 24px; letter-spacing: .1em;
+    padding: 9px 20px; border: 1px dashed var(--gold); color: var(--gold);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .sent {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+    background: var(--line-soft); border: 1px solid var(--line-soft);
+    margin: 34px 0;
+  }
+  .sent-card { background: var(--card); padding: 20px; display: flex; gap: 13px; align-items: flex-start; }
+  .sent-card .ic { color: var(--ok); flex: none; margin-top: 2px; }
+  .sent-card strong { display: block; font-size: 13px; font-weight: 600; }
+  .sent-card span { font-size: 12.5px; color: var(--ink-soft); }
+
+  .track-panel { background: var(--card); border: 1px solid var(--line-soft); padding: 30px; margin-top: 8px; }
+  .track-top { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; align-items: center; padding-bottom: 22px; border-bottom: 1px solid var(--line-soft); margin-bottom: 26px; }
+  .track-top .awb { font-size: 12px; color: var(--ink-faint); }
+  .track-top .awb b { color: var(--ink); font-variant-numeric: tabular-nums; letter-spacing: .05em; }
+  .pill {
+    display: inline-flex; align-items: center; gap: 7px;
+    padding: 6px 13px; border-radius: 100px;
+    font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+    background: color-mix(in srgb, var(--warn) 16%, transparent);
+    color: var(--warn); border: 1px solid color-mix(in srgb, var(--warn) 40%, transparent);
+  }
+  .pill.done { background: color-mix(in srgb, var(--ok) 16%, transparent); color: var(--ok); border-color: color-mix(in srgb, var(--ok) 40%, transparent); }
+  .pill .blip { width: 6px; height: 6px; border-radius: 50%; background: currentColor; animation: blip 1.4s ease-in-out infinite; }
+  @keyframes blip { 50% { opacity: .25; } }
+
+  .timeline { position: relative; padding-left: 30px; }
+  .timeline::before { content: ""; position: absolute; left: 8px; top: 8px; bottom: 8px; width: 1px; background: var(--line); }
+  .tl-fill { position: absolute; left: 8px; top: 8px; width: 1px; background: var(--gold); transition: height .8s ease; }
+  .tl { position: relative; padding: 0 0 26px; }
+  .tl:last-child { padding-bottom: 0; }
+  .tl .dot {
+    position: absolute; left: -30px; top: 3px;
+    width: 17px; height: 17px; border-radius: 50%;
+    border: 1px solid var(--line); background: var(--paper);
+    display: grid; place-items: center; color: transparent;
+    transition: all .4s;
+  }
+  .tl.done .dot { background: var(--gold); border-color: var(--gold); color: #17110A; }
+  .tl.now .dot { border-color: var(--gold); box-shadow: 0 0 0 4px color-mix(in srgb, var(--gold) 22%, transparent); }
+  .tl.now .dot::after { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--gold); }
+  .tl h4 { font-size: 16px; color: var(--ink-faint); transition: color .3s; }
+  .tl.done h4, .tl.now h4 { color: var(--ink); }
+  .tl .when { font-size: 12px; color: var(--ink-faint); font-variant-numeric: tabular-nums; margin-top: 2px; }
+  .tl .place { font-size: 13px; color: var(--ink-soft); margin-top: 5px; }
+
+  .lookup { max-width: 520px; margin: 0 auto; padding: 80px 0 110px; text-align: center; }
+  .lookup form { display: flex; gap: 8px; margin-top: 26px; }
+  .lookup input { flex: 1; font: inherit; padding: 14px 15px; background: var(--card-2); border: 1px solid var(--line); border-radius: var(--r); color: var(--ink); letter-spacing: .08em; }
+  .lookup input:focus { border-color: var(--gold); outline: none; }
+  .lookup .hint { font-size: 12.5px; color: var(--ink-faint); margin-top: 14px; }
+  .lookup .bad { color: var(--son); font-size: 13px; margin-top: 14px; }
+
+  /* ---------- story strip ---------- */
+  .story { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line-soft); border: 1px solid var(--line-soft); }
+  .story > div { background: var(--paper); padding: 32px 28px; }
+  .story h3 { font-size: 19px; margin: 14px 0 8px; }
+  .story p { font-size: 14px; color: var(--ink-soft); }
+  .story .ic { color: var(--gold); }
+
+  /* ---------- footer ---------- */
+  footer.site { padding: 60px 0 40px; }
+  .foot-grid { display: flex; justify-content: space-between; gap: 40px; flex-wrap: wrap; padding-bottom: 34px; border-bottom: 1px solid var(--line-soft); }
+  .foot-grid p { font-size: 14px; color: var(--ink-soft); max-width: 34ch; margin-top: 12px; }
+  .foot-col h5 { font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-faint); margin: 0 0 12px; font-weight: 600; font-family: var(--f-body); }
+  .foot-col ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 7px; font-size: 14px; color: var(--ink-soft); }
+  .foot-bottom { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; padding-top: 24px; font-size: 12px; color: var(--ink-faint); }
+
+  /* ---------- toast ---------- */
+  .toast {
+    position: fixed; bottom: 26px; left: 50%;
+    z-index: 200;
+    display: flex; align-items: center; gap: 10px;
+    padding: 13px 20px;
+    background: var(--ink); color: var(--paper);
+    border-radius: var(--r);
+    font-size: 14px;
+    box-shadow: var(--shadow);
+    transform: translate(-50%, 120%);
+    transition: transform .4s cubic-bezier(.2,.9,.2,1);
+  }
+  .toast.show { transform: translate(-50%, 0); }
+  .toast .ic { color: var(--gold-hi); }
+
+  .demo-flag {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 10px; letter-spacing: .12em; text-transform: uppercase;
+    padding: 3px 8px; border: 1px solid var(--line); color: var(--ink-faint); border-radius: 100px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+  }
+
+  @media (max-width: 900px) {
+    .hero-grid, .pdp, .checkout { grid-template-columns: 1fr; gap: 36px; }
+    .hero-grid { min-height: auto; padding: 48px 0; }
+    .hero-art { order: -1; }
+    .hero-art svg { width: 240px; }
+    nav.main { display: none; }
+    .story { grid-template-columns: 1fr; }
+    .sent { grid-template-columns: 1fr; }
+    .summary { position: static; }
+    section.band { padding: 64px 0; }
+    .wrap { padding: 0 20px; }
+    .field-grid { grid-template-columns: 1fr; }
+  }
+</style>
+
+<header class="site">
+  <div class="wrap bar">
+    <div class="brand" onclick="go('home')" role="button" tabindex="0" onkeydown="if(event.key==='Enter')go('home')">
+      <div class="seal">木</div>
+      <div>
+        <div class="brand-name">MỘC</div>
+        <div class="brand-sub">Specialty Coffee Roasters</div>
+      </div>
+    </div>
+    <nav class="main" id="nav">
+      <button onclick="go('shop')" data-nav="shop">Bộ sưu tập</button>
+      <button onclick="go('home')" data-nav="home">Câu chuyện</button>
+      <button onclick="go('track')" data-nav="track">Tra cứu đơn hàng</button>
+    </nav>
+    <div class="tools">
+      <button class="icon-btn" onclick="toggleTheme()" aria-label="Đổi giao diện sáng/tối">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      </button>
+      <button class="icon-btn" onclick="openCart()" aria-label="Giỏ hàng">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18M16 10a4 4 0 0 1-8 0"/></svg>
+        <span class="badge" id="cartBadge" hidden>0</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="view"></main>
+
+<div class="scrim" id="scrim" onclick="closeCart()"></div>
+
+<aside class="cart" id="cart" aria-label="Giỏ hàng">
+  <div class="cart-head">
+    <h3>Giỏ hàng</h3>
+    <button class="icon-btn" onclick="closeCart()" aria-label="Đóng">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+  <div class="cart-body" id="cartBody"></div>
+  <div class="cart-foot" id="cartFoot"></div>
+</aside>
+
+<div class="toast" id="toast"><span class="ic">✦</span><span id="toastMsg"></span></div>
+
+<script>
+/* ============================ DATA ============================ */
+const PRODUCTS = [
+  { id:'cd', name:'Cầu Đất Honey', origin:'Arabica · Lâm Đồng · 1.650m', cat:'ca-phe-hat',
+    notes:'Mật ong rừng, mơ chín, hậu ngọt kéo dài. Sơ chế honey, phơi 18 ngày trên giàn tre.',
+    price:185000, tag:'Best seller', hue:'#8C2B20', roast:'Rang vừa (Medium)', altitude:'1.650 m', process:'Honey', variety:'Typica · Bourbon' },
+  { id:'ks', name:'Khe Sanh Natural', origin:'Arabica · Quảng Trị · 700m', cat:'ca-phe-hat',
+    notes:'Vải thiều, rượu vang đỏ, kết thúc bằng chocolate đen. Lô giới hạn 300kg.',
+    price:210000, tag:'Lô giới hạn', hue:'#5C3A6E', roast:'Rang nhạt (Light)', altitude:'700 m', process:'Natural', variety:'Catimor' },
+  { id:'dn', name:'Đắk Nông Fine Robusta', origin:'Robusta · Đắk Nông · 800m', cat:'ca-phe-hat',
+    notes:'Ca cao, hạt phỉ rang, body dày — nền lý tưởng cho phin và cà phê sữa đá.',
+    price:165000, roast:'Rang đậm (Dark)', altitude:'800 m', process:'Washed', variety:'Robusta TR4' },
+  { id:'ds', name:'Blend Di Sản', origin:'Blend 70/30 · Truyền thống', cat:'ca-phe-hat',
+    notes:'Công thức gia truyền từ 1997. Đậm, thơm bơ, đứng vững trong ly sữa đặc.',
+    price:145000, tag:'Huyền thoại', hue:'#2F5245', roast:'Rang đậm (Dark)', altitude:'—', process:'Blend', variety:'Robusta · Arabica' },
+  { id:'cb', name:'Cold Brew Cô Đặc', origin:'Chai thuỷ tinh 500ml · Pha 8 ly', cat:'pha-che',
+    notes:'Ủ lạnh 18 giờ. Rót 1 phần cà phê với 3 phần nước hoặc sữa yến mạch.',
+    price:135000, hue:'#3A4E6B', roast:'—', altitude:'—', process:'Cold brew 18h', variety:'Arabica Cầu Đất' },
+  { id:'db', name:'Drip Bag Du Ký', origin:'Hộp 10 gói · 10g/gói', cat:'pha-che',
+    notes:'Túi lọc mang theo đường xa. Chỉ cần nước sôi và ba phút chờ đợi.',
+    price:95000, hue:'#6B5230', roast:'Rang vừa (Medium)', altitude:'—', process:'Washed', variety:'Arabica Cầu Đất' },
+  { id:'ph', name:'Phin Nhôm Gia Truyền', origin:'Phụ kiện · Nhôm đúc thủ công', cat:'phu-kien',
+    notes:'Đúc tay tại làng nghề Ngũ Xã. Nắp gài, chân đế dày, giữ nhiệt bền.',
+    price:120000, hue:'#7A7368', roast:'—', altitude:'—', process:'—', variety:'—' },
+  { id:'qt', name:'Hộp Quà "Mộc"', origin:'Quà tặng · 2 gói 250g + phin', cat:'phu-kien',
+    notes:'Hộp sơn mài đỏ, lót lụa. Kèm thiệp viết tay theo yêu cầu của khách.',
+    price:480000, tag:'Quà tặng', hue:'#8C2B20', roast:'—', altitude:'—', process:'—', variety:'Cầu Đất · Di Sản' },
+];
+
+const SIZES  = [ {k:'250g', m:1}, {k:'500g', m:1.85}, {k:'1kg', m:3.4} ];
+const GRINDS = ['Nguyên hạt','Xay phin','Xay pour-over','Xay espresso'];
+const NO_VARIANT = ['ph','qt','cb','db'];
+
+const STAGES = [
+  { t:'Đơn hàng đã xác nhận',      p:'Mộc Roastery · Q.3, TP.HCM',      s:0 },
+  { t:'Đang rang & đóng gói',      p:'Xưởng rang · rang theo đơn trong 24h', s:9 },
+  { t:'Đã bàn giao đơn vị vận chuyển', p:'GHTK · Bưu cục Trần Não',          s:20 },
+  { t:'Đang trên đường giao',      p:'Shipper Nguyễn V.A · 0938 xxx 214',    s:34 },
+  { t:'Giao thành công',           p:'Người nhận đã ký nhận',                s:50 },
+];
+
+const VN = ['TP. Hồ Chí Minh','Hà Nội','Đà Nẵng','Lâm Đồng','Cần Thơ','Hải Phòng','Khánh Hoà','Bình Dương'];
+
+/* ============================ STATE ============================ */
+let cart = [];
+let coupon = null;
+let orders = {};
+let view = 'home';
+let filter = 'all';
+
+const money = n => n.toLocaleString('vi-VN') + '₫';
+const $ = id => document.getElementById(id);
+
+/* ============================ PACKSHOT ART ============================ */
+function pack(p, w) {
+  const hue = p.hue || '#A67C2E';
+  if (p.id === 'cb') return `<svg viewBox="0 0 120 170" role="img" aria-label="${p.name}">
+    <rect x="38" y="4" width="44" height="14" rx="3" fill="#2b241c"/>
+    <path d="M42 18h36l10 22v116a8 8 0 0 1-8 8H40a8 8 0 0 1-8-8V40z" fill="${hue}"/>
+    <path d="M42 18h18v146H40a8 8 0 0 1-8-8V40z" fill="#fff" opacity=".08"/>
+    <rect x="38" y="66" width="44" height="52" fill="#EFE7D6"/>
+    <text x="60" y="88" font-family="Georgia,serif" font-size="12" fill="#231A13" text-anchor="middle">MỘC</text>
+    <text x="60" y="102" font-family="Georgia,serif" font-size="12" fill="#231A13" text-anchor="middle">CAFÉ</text>
+    <rect x="38" y="108" width="44" height="1" fill="#A67C2E"/>
+    <text x="60" y="150" font-family="Helvetica,sans-serif" font-size="7" letter-spacing="1.4" fill="#EFE7D6" text-anchor="middle" opacity=".8">COLD BREW</text>
+  </svg>`;
+  if (p.id === 'ph') return `<svg viewBox="0 0 120 170" role="img" aria-label="${p.name}">
+    <ellipse cx="60" cy="150" rx="34" ry="7" fill="#231A13" opacity=".15"/>
+    <path d="M30 62h60l-6 62a10 10 0 0 1-10 9H46a10 10 0 0 1-10-9z" fill="#B9B3A6"/>
+    <path d="M30 62h30l-4 71H46a10 10 0 0 1-10-9z" fill="#fff" opacity=".25"/>
+    <rect x="24" y="52" width="72" height="12" rx="3" fill="#D6D0C4"/>
+    <rect x="34" y="24" width="52" height="10" rx="3" fill="#C6C0B4"/>
+    <path d="M40 34h40l-3 14H43z" fill="#B9B3A6"/>
+    <circle cx="60" cy="29" r="3" fill="#8E887C"/>
+    <path d="M46 138h28l-2 10H48z" fill="#9E988C"/>
+  </svg>`;
+  if (p.id === 'qt') return `<svg viewBox="0 0 120 170" role="img" aria-label="${p.name}">
+    <ellipse cx="60" cy="152" rx="42" ry="7" fill="#231A13" opacity=".15"/>
+    <rect x="16" y="60" width="88" height="88" rx="3" fill="${hue}"/>
+    <rect x="16" y="60" width="30" height="88" fill="#fff" opacity=".08"/>
+    <rect x="12" y="48" width="96" height="18" rx="3" fill="#7A2119"/>
+    <rect x="54" y="48" width="12" height="100" fill="#A67C2E"/>
+    <rect x="12" y="98" width="96" height="9" fill="#A67C2E"/>
+    <circle cx="60" cy="102" r="13" fill="#7A2119" stroke="#C9A45C"/>
+    <text x="60" y="107" font-family="Georgia,serif" font-size="13" fill="#E3C583" text-anchor="middle">木</text>
+  </svg>`;
+  if (p.id === 'db') return `<svg viewBox="0 0 120 170" role="img" aria-label="${p.name}">
+    <ellipse cx="60" cy="150" rx="38" ry="7" fill="#231A13" opacity=".15"/>
+    <rect x="22" y="46" width="76" height="100" rx="2" fill="${hue}"/>
+    <rect x="22" y="46" width="26" height="100" fill="#fff" opacity=".08"/>
+    <rect x="30" y="64" width="60" height="46" fill="#EFE7D6"/>
+    <text x="60" y="84" font-family="Georgia,serif" font-size="13" fill="#231A13" text-anchor="middle">MỘC</text>
+    <rect x="42" y="90" width="36" height="1" fill="#A67C2E"/>
+    <text x="60" y="104" font-family="Helvetica,sans-serif" font-size="7" letter-spacing="1" fill="#5C4B3B" text-anchor="middle">DRIP BAG × 10</text>
+    <rect x="22" y="120" width="76" height="1" fill="#000" opacity=".2"/>
+  </svg>`;
+  return `<svg viewBox="0 0 120 170" role="img" aria-label="${p.name}">
+    <ellipse cx="60" cy="156" rx="36" ry="6" fill="#231A13" opacity=".18"/>
+    <path d="M26 40h68v106a8 8 0 0 1-8 8H34a8 8 0 0 1-8-8z" fill="${hue}"/>
+    <path d="M26 40h24v114H34a8 8 0 0 1-8-8z" fill="#fff" opacity=".09"/>
+    <path d="M22 28h76l-4 14H26z" fill="#2b241c"/>
+    <rect x="22" y="22" width="76" height="8" rx="2" fill="#3a3129"/>
+    <rect x="36" y="62" width="48" height="62" fill="#EFE7D6"/>
+    <text x="60" y="80" font-family="Georgia,serif" font-size="9" letter-spacing="1.5" fill="#8B7863" text-anchor="middle">MỘC</text>
+    <rect x="48" y="86" width="24" height="1" fill="#A67C2E"/>
+    <text x="60" y="103" font-family="Georgia,serif" font-size="11" fill="#231A13" text-anchor="middle">${p.name.split(' ')[0]}</text>
+    <text x="60" y="116" font-family="Helvetica,sans-serif" font-size="6" letter-spacing="1" fill="#5C4B3B" text-anchor="middle">${(p.process||'').toUpperCase()}</text>
+    <circle cx="60" cy="138" r="7" fill="none" stroke="#EFE7D6" stroke-width=".8" opacity=".55"/>
+    <text x="60" y="141" font-family="Georgia,serif" font-size="7" fill="#EFE7D6" text-anchor="middle" opacity=".8">木</text>
+  </svg>`;
+}
+
+/* ============================ VIEWS ============================ */
+function go(v, arg) {
+  view = v;
+  window.scrollTo({ top: 0, behavior: 'instant' });
+  document.querySelectorAll('#nav button').forEach(b =>
+    b.setAttribute('aria-current', b.dataset.nav === v ? 'true' : 'false'));
+  if (v === 'home') renderHome();
+  if (v === 'shop') renderShop();
+  if (v === 'pdp') renderPDP(arg);
+  if (v === 'checkout') renderCheckout();
+  if (v === 'confirm') renderConfirm(arg);
+  if (v === 'track') renderTrack(arg);
+}
+
+function renderHome() {
+  const feat = PRODUCTS.slice(0, 4);
+  $('view').innerHTML = `
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="eyebrow">Rang thủ công tại Sài Gòn từ 1997</span>
+        <h1>Nguyên bản,<br>từ <em>hạt</em> đến ly.</h1>
+        <p class="hero-lede">Chúng tôi đi tìm những lô cà phê nhỏ ở Cầu Đất, Khe Sanh, Đắk Nông — rang theo đơn, đóng gói trong 24 giờ, và gửi đến bạn khi hương còn nguyên vẹn.</p>
+        <div class="hero-cta">
+          <button class="btn" onclick="go('shop')">Khám phá bộ sưu tập</button>
+          <button class="btn ghost" onclick="go('track')">Tra cứu đơn hàng</button>
+        </div>
+        <div class="hero-facts">
+          <div class="fact"><strong class="num">28</strong><span>Năm rang xay</span></div>
+          <div class="fact"><strong class="num">6</strong><span>Vùng nguyên liệu</span></div>
+          <div class="fact"><strong class="num">24h</strong><span>Rang &rarr; đóng gói</span></div>
+        </div>
+      </div>
+      <div class="hero-art">
+        <div class="halo"></div>
+        ${pack(PRODUCTS[0])}
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <span class="eyebrow">Bộ sưu tập</span>
+          <h2>Bốn lô cà phê đang mở bán</h2>
+        </div>
+        <button class="btn ghost" onclick="go('shop')">Xem tất cả</button>
+      </div>
+      <div class="grid">${feat.map(cardHTML).join('')}</div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <span class="eyebrow">Vì sao là Mộc</span>
+          <h2>Ba điều chúng tôi không nhượng bộ</h2>
+        </div>
+      </div>
+      <div class="story">
+        <div>
+          <div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M12 2v20M2 12h20"/><circle cx="12" cy="12" r="9"/></svg></div>
+          <h3>Truy xuất tận vườn</h3>
+          <p>Mỗi gói in tên nông hộ, độ cao và ngày rang. Bạn biết chính xác hạt cà phê đến từ đâu và ai đã trồng nó.</p>
+        </div>
+        <div>
+          <div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M12 3c2 3 4 4.5 4 8a4 4 0 0 1-8 0c0-3.5 2-5 4-8z"/><path d="M5 21h14"/></svg></div>
+          <h3>Rang theo đơn</h3>
+          <p>Không tồn kho hạt đã rang. Đơn đặt hôm nay được rang trong mẻ ngày mai và rời xưởng trong 24 giờ.</p>
+        </div>
+        <div>
+          <div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="2" y="7" width="14" height="10" rx="1"/><path d="M16 10h4l2 3v4h-6z"/><circle cx="6" cy="19" r="2"/><circle cx="18" cy="19" r="2"/></svg></div>
+          <h3>Giao hàng có mã theo dõi</h3>
+          <p>Đặt xong nhận ngay mã đơn và mã vận đơn. Trạng thái cập nhật tự động qua email và SMS đến khi ký nhận.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  ${footerHTML()}`;
+}
+
+function cardHTML(p) {
+  return `<article class="card" onclick="go('pdp','${p.id}')" role="button" tabindex="0" onkeydown="if(event.key==='Enter')go('pdp','${p.id}')">
+    <div class="packshot">
+      ${p.tag ? `<span class="tag ${p.tag === 'Lô giới hạn' || p.tag === 'Quà tặng' ? 'soft' : ''}">${p.tag}</span>` : ''}
+      ${pack(p)}
+    </div>
+    <h3>${p.name}</h3>
+    <div class="origin">${p.origin}</div>
+    <p class="notes">${p.notes}</p>
+    <div class="foot">
+      <span class="price">${money(p.price)}</span>
+      <button class="add-mini" onclick="event.stopPropagation(); quickAdd('${p.id}')">Thêm vào giỏ</button>
+    </div>
+  </article>`;
+}
+
+function renderShop() {
+  const cats = [
+    { k:'all', n:'Tất cả' }, { k:'ca-phe-hat', n:'Cà phê hạt' },
+    { k:'pha-che', n:'Pha sẵn & drip' }, { k:'phu-kien', n:'Phụ kiện & quà tặng' },
+  ];
+  const list = PRODUCTS.filter(p => filter === 'all' || p.cat === filter);
+  $('view').innerHTML = `
+  <section class="band" style="padding-top:56px">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <span class="eyebrow">Bộ sưu tập · Vụ mùa 2025–2026</span>
+          <h2>Tám sản phẩm đang mở bán</h2>
+        </div>
+        <p>Miễn phí giao hàng toàn quốc cho đơn từ 500.000₫. Rang theo đơn, giao trong 2–4 ngày.</p>
+      </div>
+      <div class="filters">
+        ${cats.map(c => `<button class="chip" aria-pressed="${filter === c.k}" onclick="filter='${c.k}';renderShop()">${c.n}</button>`).join('')}
+      </div>
+      <div class="grid">${list.map(cardHTML).join('')}</div>
+    </div>
+  </section>
+  ${footerHTML()}`;
+}
+
+function renderPDP(id) {
+  const p = PRODUCTS.find(x => x.id === id);
+  const simple = NO_VARIANT.includes(p.id);
+  window._sel = { id: p.id, size: simple ? '—' : '250g', grind: simple ? '—' : 'Nguyên hạt', qty: 1 };
+  $('view').innerHTML = `
+  <div class="wrap">
+    <div class="pdp">
+      <div class="pdp-art">${pack(p)}</div>
+      <div>
+        <span class="eyebrow">${p.origin}</span>
+        <h1>${p.name}</h1>
+        <p class="lede">${p.notes}</p>
+        <div class="price-lg" id="pdpPrice">${money(p.price)}</div>
+
+        ${simple ? '' : `
+        <div class="opt-group">
+          <div class="opt-label">Trọng lượng</div>
+          <div class="opts" id="sizeOpts">
+            ${SIZES.map(s => `<button class="opt" aria-pressed="${s.k === '250g'}" onclick="pick('size','${s.k}')">${s.k}</button>`).join('')}
+          </div>
+        </div>
+        <div class="opt-group">
+          <div class="opt-label">Kiểu xay</div>
+          <div class="opts" id="grindOpts">
+            ${GRINDS.map(g => `<button class="opt" aria-pressed="${g === 'Nguyên hạt'}" onclick="pick('grind','${g}')">${g}</button>`).join('')}
+          </div>
+        </div>`}
+
+        <div class="opt-group">
+          <div class="opt-label">Số lượng</div>
+          <div class="qty">
+            <button onclick="bump(-1)" aria-label="Giảm">−</button>
+            <span id="pdpQty">1</span>
+            <button onclick="bump(1)" aria-label="Tăng">+</button>
+          </div>
+        </div>
+
+        <div class="buy-row">
+          <button class="btn gold" onclick="addSel()">Thêm vào giỏ</button>
+          <button class="btn ghost" onclick="addSel(true)">Mua ngay</button>
+        </div>
+
+        <dl class="spec">
+          <div class="spec-row"><dt>Độ rang</dt><dd>${p.roast}</dd></div>
+          <div class="spec-row"><dt>Sơ chế</dt><dd>${p.process}</dd></div>
+          <div class="spec-row"><dt>Giống</dt><dd>${p.variety}</dd></div>
+          <div class="spec-row"><dt>Độ cao</dt><dd>${p.altitude}</dd></div>
+          <div class="spec-row"><dt>Giao hàng</dt><dd>2–4 ngày · Miễn phí từ 500.000₫</dd></div>
+        </dl>
+      </div>
+    </div>
+  </div>
+  ${footerHTML()}`;
+}
+
+function pick(k, v) {
+  window._sel[k] = v;
+  const box = k === 'size' ? $('sizeOpts') : $('grindOpts');
+  [...box.children].forEach(b => b.setAttribute('aria-pressed', b.textContent.trim() === v));
+  $('pdpPrice').textContent = money(unitPrice(window._sel));
+}
+function bump(d) {
+  window._sel.qty = Math.max(1, Math.min(20, window._sel.qty + d));
+  $('pdpQty').textContent = window._sel.qty;
+}
+function unitPrice(sel) {
+  const p = PRODUCTS.find(x => x.id === sel.id);
+  const m = SIZES.find(s => s.k === sel.size);
+  return Math.round(p.price * (m ? m.m : 1) / 1000) * 1000;
+}
+
+/* ============================ CART ============================ */
+function quickAdd(id) {
+  const simple = NO_VARIANT.includes(id);
+  addToCart({ id, size: simple ? '—' : '250g', grind: simple ? '—' : 'Nguyên hạt', qty: 1 });
+}
+function addSel(buyNow) {
+  addToCart({ ...window._sel });
+  if (buyNow) { closeCart(); go('checkout'); }
+}
+function addToCart(sel) {
+  const key = sel.id + '|' + sel.size + '|' + sel.grind;
+  const found = cart.find(l => l.key === key);
+  if (found) found.qty = Math.min(20, found.qty + sel.qty);
+  else cart.push({ key, ...sel, unit: unitPrice(sel) });
+  syncCart();
+  const p = PRODUCTS.find(x => x.id === sel.id);
+  toast(`Đã thêm ${p.name} vào giỏ`);
+  openCart();
+}
+function setQty(key, d) {
+  const l = cart.find(x => x.key === key);
+  if (!l) return;
+  l.qty += d;
+  if (l.qty < 1) cart = cart.filter(x => x.key !== key);
+  syncCart();
+}
+function removeLine(key) { cart = cart.filter(x => x.key !== key); syncCart(); }
+
+function subtotal() { return cart.reduce((s, l) => s + l.unit * l.qty, 0); }
+function shipFee() { const s = subtotal(); return s === 0 || s >= 500000 ? 0 : 30000; }
+function discount() { return coupon ? Math.round(subtotal() * coupon.pct / 100) : 0; }
+function grand() { return subtotal() - discount() + shipFee(); }
+
+function syncCart() {
+  const n = cart.reduce((s, l) => s + l.qty, 0);
+  const b = $('cartBadge');
+  b.textContent = n; b.hidden = n === 0;
+  renderCartDrawer();
+  if (view === 'checkout') renderCheckout();
+}
+
+function renderCartDrawer() {
+  const body = $('cartBody'), foot = $('cartFoot');
+  if (!cart.length) {
+    body.innerHTML = `<div class="empty">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18M16 10a4 4 0 0 1-8 0"/></svg>
+      <p>Giỏ hàng đang trống.</p></div>`;
+    foot.innerHTML = `<button class="btn ghost wide" onclick="closeCart();go('shop')">Xem bộ sưu tập</button>`;
+    return;
+  }
+  body.innerHTML = cart.map(l => {
+    const p = PRODUCTS.find(x => x.id === l.id);
+    const v = [l.size, l.grind].filter(x => x !== '—').join(' · ') || p.origin.split('·')[0].trim();
+    return `<div class="line-item">
+      <div class="thumb">${pack(p)}</div>
+      <div>
+        <div class="li-name">${p.name}</div>
+        <div class="li-var">${v}</div>
+        <div class="li-ctl">
+          <button onclick="setQty('${l.key}',-1)" aria-label="Giảm">−</button>
+          <span class="n">${l.qty}</span>
+          <button onclick="setQty('${l.key}',1)" aria-label="Tăng">+</button>
+        </div>
+      </div>
+      <div class="li-right">
+        <span class="li-price">${money(l.unit * l.qty)}</span>
+        <button class="li-rm" onclick="removeLine('${l.key}')">Xoá</button>
+      </div>
+    </div>`;
+  }).join('');
+
+  const left = 500000 - subtotal();
+  foot.innerHTML = `
+    <div class="totals">
+      <div class="row"><span class="muted">Tạm tính</span><span class="num">${money(subtotal())}</span></div>
+      <div class="row"><span class="muted">Phí giao hàng</span><span class="num">${shipFee() ? money(shipFee()) : 'Miễn phí'}</span></div>
+      ${left > 0 ? `<div class="free-ship">✦ Mua thêm ${money(left)} để được miễn phí giao hàng</div>` : ''}
+      <div class="row grand"><span>Tổng cộng</span><span class="num">${money(grand())}</span></div>
+    </div>
+    <button class="btn gold wide" onclick="closeCart();go('checkout')">Thanh toán</button>`;
+}
+
+function openCart() { $('cart').classList.add('open'); $('scrim').classList.add('open'); }
+function closeCart() { $('cart').classList.remove('open'); $('scrim').classList.remove('open'); }
+
+/* ============================ CHECKOUT ============================ */
+let payment = 'cod';
+
+function renderCheckout() {
+  if (!cart.length) { renderEmptyCheckout(); return; }
+  $('view').innerHTML = `
+  <div class="wrap">
+    <div class="checkout">
+      <div>
+        <div class="steps">
+          <div class="s on"><span class="dot">1</span> Thông tin</div><span class="sep"></span>
+          <div class="s"><span class="dot">2</span> Thanh toán</div><span class="sep"></span>
+          <div class="s"><span class="dot">3</span> Theo dõi đơn</div>
+        </div>
+
+        <form id="coForm" novalidate>
+          <fieldset>
+            <legend>Thông tin người nhận</legend>
+            <div class="field-grid">
+              <div class="field"><label for="f-name">Họ và tên</label><input id="f-name" placeholder="Nguyễn Thị Lan" autocomplete="name"><span class="err">Vui lòng nhập họ tên người nhận.</span></div>
+              <div class="field"><label for="f-phone">Số điện thoại</label><input id="f-phone" placeholder="09xx xxx xxx" inputmode="tel" autocomplete="tel"><span class="err">Số điện thoại cần có ít nhất 9 chữ số.</span></div>
+              <div class="field full"><label for="f-email">Email nhận xác nhận đơn</label><input id="f-email" type="email" placeholder="lan@email.com" autocomplete="email"><span class="err">Email chưa đúng định dạng.</span></div>
+              <div class="field full"><label for="f-addr">Địa chỉ</label><input id="f-addr" placeholder="Số nhà, đường, phường/xã" autocomplete="street-address"><span class="err">Vui lòng nhập địa chỉ giao hàng.</span></div>
+              <div class="field"><label for="f-city">Tỉnh / Thành phố</label>
+                <select id="f-city"><option value="">Chọn tỉnh/thành</option>${VN.map(c => `<option>${c}</option>`).join('')}</select>
+                <span class="err">Vui lòng chọn tỉnh/thành.</span></div>
+              <div class="field"><label for="f-note">Ghi chú (tuỳ chọn)</label><input id="f-note" placeholder="Giao giờ hành chính"></div>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Phương thức thanh toán</legend>
+            <div class="pay-opts">
+              ${payHTML('cod','Thanh toán khi nhận hàng (COD)','Trả tiền mặt cho shipper','<path d="M2 7h20v10H2z"/><circle cx="12" cy="12" r="2.5"/>')}
+              ${payHTML('bank','Chuyển khoản ngân hàng','Nhận mã QR VietQR sau khi đặt','<rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><path d="M14 14h3v3h-3zM18 18h3v3h-3z"/>')}
+              ${payHTML('momo','Ví MoMo / ZaloPay','Chuyển đến cổng thanh toán','<circle cx="8" cy="8" r="4"/><circle cx="16" cy="16" r="4"/>')}
+            </div>
+          </fieldset>
+
+          <button type="button" class="btn gold wide" onclick="placeOrder()">Đặt hàng · ${money(grand())}</button>
+          <p class="muted" style="font-size:12.5px;margin-top:14px;text-align:center">Bằng việc đặt hàng, bạn đồng ý với điều khoản mua hàng của Mộc.</p>
+        </form>
+      </div>
+
+      <div class="summary">
+        <h3>Đơn hàng của bạn</h3>
+        ${cart.map(l => {
+          const p = PRODUCTS.find(x => x.id === l.id);
+          const v = [l.size, l.grind].filter(x => x !== '—').join(' · ');
+          return `<div class="sum-item">
+            <div class="thumb">${pack(p)}</div>
+            <div><div class="n">${p.name}</div><div class="v">${v ? v + ' · ' : ''}SL ${l.qty}</div></div>
+            <div class="p">${money(l.unit * l.qty)}</div>
+          </div>`;
+        }).join('')}
+
+        <div class="coupon">
+          <input id="cpn" placeholder="Mã giảm giá" value="${coupon ? coupon.code : ''}" aria-label="Mã giảm giá">
+          <button type="button" onclick="applyCoupon()">Áp dụng</button>
+        </div>
+        <div class="coupon-msg ${coupon ? 'ok' : ''}" id="cpnMsg">${coupon ? `Đã áp dụng ${coupon.code} — giảm ${coupon.pct}%` : ''}</div>
+
+        <div class="totals">
+          <div class="row"><span class="muted">Tạm tính</span><span class="num">${money(subtotal())}</span></div>
+          ${coupon ? `<div class="row"><span class="muted">Giảm giá (${coupon.code})</span><span class="num" style="color:var(--ok)">−${money(discount())}</span></div>` : ''}
+          <div class="row"><span class="muted">Phí giao hàng</span><span class="num">${shipFee() ? money(shipFee()) : 'Miễn phí'}</span></div>
+          <div class="row grand"><span>Tổng cộng</span><span class="num">${money(grand())}</span></div>
+        </div>
+        <p class="muted" style="font-size:12px;margin-top:6px">Thử mã <b>MOC10</b> để giảm 10%.</p>
+      </div>
+    </div>
+  </div>`;
+}
+
+function payHTML(k, title, sub, path) {
+  return `<button type="button" class="pay" aria-pressed="${payment === k}" onclick="payment='${k}';renderCheckout()">
+    <span class="mark"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">${path}</svg></span>
+    <span class="t"><strong>${title}</strong><span>${sub}</span></span>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--gold);opacity:${payment === k ? 1 : 0}"><path d="M20 6 9 17l-5-5"/></svg>
+  </button>`;
+}
+
+function renderEmptyCheckout() {
+  $('view').innerHTML = `<div class="wrap"><div class="empty" style="padding:130px 20px">
+    <h2 style="font-size:28px;margin-bottom:10px;color:var(--ink)">Giỏ hàng đang trống</h2>
+    <p style="margin-bottom:24px">Hãy chọn vài lô cà phê trước khi thanh toán.</p>
+    <button class="btn" onclick="go('shop')">Xem bộ sưu tập</button>
+  </div></div>`;
+}
+
+function applyCoupon() {
+  const v = $('cpn').value.trim().toUpperCase();
+  const msg = $('cpnMsg');
+  if (v === 'MOC10') { coupon = { code: v, pct: 10 }; renderCheckout(); toast('Đã áp dụng mã giảm 10%'); return; }
+  coupon = null;
+  msg.className = 'coupon-msg bad';
+  msg.textContent = v ? `Mã "${v}" không hợp lệ hoặc đã hết hạn.` : 'Vui lòng nhập mã giảm giá.';
+}
+
+/* ============================ ORDER ============================ */
+function placeOrder() {
+  const rules = [
+    ['f-name',  v => v.trim().length >= 2],
+    ['f-phone', v => v.replace(/\D/g, '').length >= 9],
+    ['f-email', v => /^\S+@\S+\.\S+$/.test(v.trim())],
+    ['f-addr',  v => v.trim().length >= 5],
+    ['f-city',  v => v !== ''],
+  ];
+  let ok = true, first = null;
+  rules.forEach(([id, test]) => {
+    const el = $(id), wrap = el.closest('.field');
+    const good = test(el.value);
+    wrap.classList.toggle('invalid', !good);
+    if (!good && !first) first = el;
+    if (!good) ok = false;
+  });
+  if (!ok) { first.focus(); toast('Vui lòng kiểm tra lại thông tin nhận hàng'); return; }
+
+  const rnd = n => Math.floor(Math.random() * n);
+  const code = 'MC-' + String(rnd(900000) + 100000);
+  const awb  = 'GHTK' + String(rnd(9000000000) + 1000000000);
+  const order = {
+    code, awb,
+    at: Date.now(),
+    name: $('f-name').value.trim(),
+    phone: $('f-phone').value.trim(),
+    email: $('f-email').value.trim(),
+    addr: $('f-addr').value.trim() + ', ' + $('f-city').value,
+    note: $('f-note').value.trim(),
+    pay: { cod:'Thanh toán khi nhận hàng (COD)', bank:'Chuyển khoản ngân hàng', momo:'Ví MoMo / ZaloPay' }[payment],
+    items: cart.map(l => ({ ...l })),
+    total: grand(),
+    coupon: coupon ? coupon.code : null,
+  };
+  orders[code] = order;
+  cart = []; coupon = null;
+  syncCart();
+  go('confirm', code);
+}
+
+const fmtTime = ms => new Date(ms).toLocaleString('vi-VN', { hour:'2-digit', minute:'2-digit', day:'2-digit', month:'2-digit' });
+
+/* Demo tempo: 1 "stage step" = 6 seconds of real time */
+const TICK = 6000;
+function stageIndex(o) {
+  const elapsed = (Date.now() - o.at) / TICK;
+  let i = 0;
+  STAGES.forEach((s, k) => { if (elapsed >= s.s) i = k; });
+  return i;
+}
+function stageTime(o, k) { return o.at + STAGES[k].s * TICK; }
+
+function renderConfirm(code) {
+  const o = orders[code];
+  $('view').innerHTML = `
+  <div class="wrap"><div class="confirm">
+    <div class="confirm-top">
+      <div class="stamp"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M20 6 9 17l-5-5"/></svg></div>
+      <span class="eyebrow">Đặt hàng thành công</span>
+      <h1>Cảm ơn ${o.name.split(' ').slice(-1)[0]}, đơn hàng đã được ghi nhận.</h1>
+      <div class="order-code">${o.code}</div>
+      <p class="muted" style="margin-top:16px;font-size:14px">Chúng tôi sẽ rang cà phê của bạn trong mẻ gần nhất và bàn giao vận chuyển trong 24 giờ.</p>
+    </div>
+
+    <div class="sent">
+      <div class="sent-card">
+        <span class="ic"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg></span>
+        <div><strong>Email xác nhận đã gửi</strong><span>${o.email} · kèm hoá đơn và mã theo dõi</span></div>
+      </div>
+      <div class="sent-card">
+        <span class="ic"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M11 18h2"/></svg></span>
+        <div><strong>SMS đã gửi</strong><span>${o.phone} · cập nhật tự động mỗi khi đơn đổi trạng thái</span></div>
+      </div>
+    </div>
+
+    <div id="trackHost"></div>
+
+    <div class="track-panel" style="margin-top:1px">
+      <h3 style="font-size:19px;margin-bottom:16px">Chi tiết đơn hàng</h3>
+      ${o.items.map(l => {
+        const p = PRODUCTS.find(x => x.id === l.id);
+        const v = [l.size, l.grind].filter(x => x !== '—').join(' · ');
+        return `<div class="sum-item">
+          <div class="thumb" style="background:var(--paper)">${pack(p)}</div>
+          <div><div class="n">${p.name}</div><div class="v">${v ? v + ' · ' : ''}SL ${l.qty}</div></div>
+          <div class="p">${money(l.unit * l.qty)}</div>
+        </div>`;
+      }).join('')}
+      <dl class="spec" style="margin-top:20px">
+        <div class="spec-row"><dt>Người nhận</dt><dd>${o.name} · ${o.phone}</dd></div>
+        <div class="spec-row"><dt>Địa chỉ giao</dt><dd>${o.addr}</dd></div>
+        ${o.note ? `<div class="spec-row"><dt>Ghi chú</dt><dd>${o.note}</dd></div>` : ''}
+        <div class="spec-row"><dt>Thanh toán</dt><dd>${o.pay}</dd></div>
+        ${o.coupon ? `<div class="spec-row"><dt>Mã giảm giá</dt><dd>${o.coupon}</dd></div>` : ''}
+        <div class="spec-row"><dt>Tổng thanh toán</dt><dd style="font-weight:700">${money(o.total)}</dd></div>
+      </dl>
+      <div style="display:flex;gap:10px;margin-top:24px;flex-wrap:wrap">
+        <button class="btn ghost" onclick="go('shop')">Tiếp tục mua sắm</button>
+        <button class="btn ghost" onclick="go('track','${o.code}')">Mở trang tra cứu</button>
+      </div>
+    </div>
+  </div></div>`;
+  mountTracker(o, $('trackHost'));
+}
+
+function trackerHTML(o) {
+  const i = stageIndex(o);
+  const done = i >= STAGES.length - 1;
+  return `<div class="track-panel">
+    <div class="track-top">
+      <div>
+        <span class="eyebrow">Theo dõi vận chuyển</span>
+        <div class="awb" style="margin-top:6px">Mã vận đơn <b>${o.awb}</b> · Giao hàng Tiết Kiệm</div>
+      </div>
+      <span class="pill ${done ? 'done' : ''}">${done ? '' : '<span class="blip"></span>'}${STAGES[i].t}</span>
+    </div>
+    <div class="timeline">
+      <div class="tl-fill" style="height:${(i / (STAGES.length - 1)) * 100}%"></div>
+      ${STAGES.map((s, k) => `
+        <div class="tl ${k < i ? 'done' : k === i ? 'now done' : ''}">
+          <div class="dot">${k <= i ? '<svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><path d="M20 6 9 17l-5-5"/></svg>' : ''}</div>
+          <h4>${s.t}</h4>
+          <div class="when">${k <= i ? fmtTime(stageTime(o, k)) : 'Dự kiến ' + fmtTime(stageTime(o, k))}</div>
+          <div class="place">${s.p}</div>
+        </div>`).join('')}
+    </div>
+    ${done ? '' : `<p class="muted" style="font-size:12px;margin-top:22px;display:flex;align-items:center;gap:8px">
+      <span class="demo-flag">Demo</span> Trạng thái tự cập nhật mỗi vài giây để anh/chị xem luồng tracking chạy thật.</p>`}
+  </div>`;
+}
+
+let tickTimer = null;
+function mountTracker(o, host) {
+  clearInterval(tickTimer);
+  const paint = () => {
+    if (!document.body.contains(host)) { clearInterval(tickTimer); return; }
+    host.innerHTML = trackerHTML(o);
+  };
+  paint();
+  tickTimer = setInterval(paint, 1500);
+}
+
+function renderTrack(code) {
+  const o = code ? orders[code] : null;
+  if (o) {
+    $('view').innerHTML = `<div class="wrap"><div class="confirm" style="padding-top:50px">
+      <div style="margin-bottom:26px">
+        <span class="eyebrow">Đơn hàng ${o.code}</span>
+        <h1 style="font-size:34px;margin-top:8px">Hành trình gói cà phê của bạn</h1>
+      </div>
+      <div id="trackHost"></div>
+      <div style="margin-top:24px"><button class="btn ghost" onclick="go('track')">Tra cứu đơn khác</button></div>
+    </div></div>`;
+    mountTracker(o, $('trackHost'));
+    return;
+  }
+  const codes = Object.keys(orders);
+  $('view').innerHTML = `<div class="wrap"><div class="lookup">
+    <span class="eyebrow">Tra cứu</span>
+    <h1 style="font-size:36px;margin-top:10px">Đơn hàng của bạn đang ở đâu?</h1>
+    <p class="muted" style="margin-top:12px">Nhập mã đơn hàng trong email xác nhận (dạng MC-123456).</p>
+    <form onsubmit="event.preventDefault();lookup()">
+      <input id="lk" placeholder="MC-123456" aria-label="Mã đơn hàng" value="${codes[codes.length - 1] || ''}">
+      <button class="btn gold" type="submit">Tra cứu</button>
+    </form>
+    <div id="lkErr"></div>
+    <p class="hint">${codes.length ? 'Mã đơn vừa tạo trong phiên demo này: ' + codes.join(', ') : 'Chưa có đơn nào trong phiên demo. Hãy đặt thử một đơn để xem luồng tracking.'}</p>
+  </div></div>`;
+}
+function lookup() {
+  const v = $('lk').value.trim().toUpperCase();
+  if (orders[v]) { go('track', v); return; }
+  $('lkErr').innerHTML = `<p class="bad">Không tìm thấy đơn hàng <b>${v || '—'}</b>. Kiểm tra lại mã trong email xác nhận.</p>`;
+}
+
+/* ============================ CHROME ============================ */
+function footerHTML() {
+  return `<footer class="site"><div class="wrap">
+    <div class="foot-grid">
+      <div style="max-width:340px">
+        <div class="brand" style="cursor:default">
+          <div class="seal">木</div>
+          <div><div class="brand-name">MỘC</div><div class="brand-sub">Specialty Coffee Roasters</div></div>
+        </div>
+        <p>Xưởng rang 46 Nguyễn Thông, Quận 3, TP. Hồ Chí Minh. Mở cửa 7:00 – 21:00 mỗi ngày.</p>
+      </div>
+      <div class="foot-col"><h5>Mua hàng</h5><ul>
+        <li>Cà phê hạt</li><li>Pha sẵn &amp; drip bag</li><li>Phụ kiện &amp; quà tặng</li><li>Bán sỉ cho quán</li></ul></div>
+      <div class="foot-col"><h5>Hỗ trợ</h5><ul>
+        <li>Tra cứu đơn hàng</li><li>Chính sách đổi trả</li><li>Vận chuyển &amp; thanh toán</li><li>Hotline 1900 6789</li></ul></div>
+      <div class="foot-col"><h5>Kết nối</h5><ul>
+        <li>Facebook</li><li>Instagram</li><li>Shopee Mall</li><li>Bản tin rang mới</li></ul></div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Mộc Coffee Roasters. Bản demo giao diện.</span>
+      <span class="demo-flag">Demo · dữ liệu mô phỏng</span>
+    </div>
+  </div></footer>`;
+}
+
+let toastTimer = null;
+function toast(msg) {
+  $('toastMsg').textContent = msg;
+  $('toast').classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => $('toast').classList.remove('show'), 2600);
+}
+
+function toggleTheme() {
+  const root = document.documentElement;
+  const dark = root.getAttribute('data-theme')
+    ? root.getAttribute('data-theme') === 'dark'
+    : matchMedia('(prefers-color-scheme: dark)').matches;
+  root.setAttribute('data-theme', dark ? 'light' : 'dark');
+}
+
+/* grain texture */
+(function grain() {
+  const c = document.createElement('canvas');
+  c.width = c.height = 140;
+  const x = c.getContext('2d');
+  const img = x.createImageData(140, 140);
+  for (let i = 0; i < img.data.length; i += 4) {
+    const v = 118 + Math.floor(Math.random() * 30);
+    img.data[i] = img.data[i+1] = img.data[i+2] = v;
+    img.data[i+3] = 16;
+  }
+  x.putImageData(img, 0, 0);
+  document.documentElement.style.setProperty('--grain', `url(${c.toDataURL()})`);
+})();
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeCart(); });
+
+syncCart();
+go('home');
+</script>
+</body>
+</html>
